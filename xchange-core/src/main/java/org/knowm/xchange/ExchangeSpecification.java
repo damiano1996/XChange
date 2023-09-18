@@ -2,6 +2,8 @@ package org.knowm.xchange;
 
 import static org.knowm.xchange.ExchangeClassUtils.exchangeClassForName;
 
+import java.net.Proxy;
+import java.net.Proxy.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +31,9 @@ public class ExchangeSpecification {
   private int port = 80;
   private String proxyHost;
   private Integer proxyPort;
+  private String proxyUserName;
+  private String proxyPassword;
+  private Proxy.Type proxyType;
   private int httpConnTimeout = 0; // default rescu configuration will be used if value not changed
   private int httpReadTimeout = 0; // default rescu configuration will be used if value not changed
   private ResilienceSpecification resilience = new ResilienceSpecification();
@@ -135,13 +140,67 @@ public class ExchangeSpecification {
   }
 
   /**
-   * Get the port of the http proxy server.
+   * Set the port of the http proxy server.
    *
    * @param proxyPort the host name
    */
   public void setProxyPort(Integer proxyPort) {
 
     this.proxyPort = proxyPort;
+  }
+
+  /**
+   * Get the proxy type.
+   *
+   * @return The type of the proxy.
+   */
+  public Type getProxyType() {
+    return proxyType;
+  }
+
+  /**
+   * Set the proxy type.
+   *
+   * @param proxyType The type of the proxy.
+   */
+  public void setProxyType(Type proxyType) {
+    this.proxyType = proxyType;
+  }
+
+  /**
+   * Get the username to connect to the proxy server with authentication.
+   *
+   * @return The username to authenticate with the proxy.
+   */
+  public String getProxyUserName() {
+    return proxyUserName;
+  }
+
+  /**
+   * Set the username to connect to the proxy server with authentication.
+   *
+   * @param proxyUserName The username to authenticate with the proxy.
+   */
+  public void setProxyUserName(String proxyUserName) {
+    this.proxyUserName = proxyUserName;
+  }
+
+  /**
+   * Get the password to connect to the proxy server with authentication.
+   *
+   * @return The proxy password.
+   */
+  public String getProxyPassword() {
+    return proxyPassword;
+  }
+
+  /**
+   * Set the password to connect to the proxy server with authentication.
+   *
+   * @param proxyPassword The proxy password.
+   */
+  public void setProxyPassword(String proxyPassword) {
+    this.proxyPassword = proxyPassword;
   }
 
   /**

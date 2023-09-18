@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.interceptor.InterceptorProvider;
 import si.mazi.rescu.ClientConfig;
+import si.mazi.rescu.ClientConfigUtil;
 import si.mazi.rescu.IRestProxyFactory;
 import si.mazi.rescu.Interceptor;
 import si.mazi.rescu.RestProxyFactoryImpl;
@@ -107,6 +108,17 @@ public final class ExchangeRestProxyBuilder<T> {
     }
     if (exchangeSpecification.getProxyPort() != null) {
       rescuConfig.setProxyPort(exchangeSpecification.getProxyPort());
+    }
+    if (exchangeSpecification.getProxyType() != null) {
+      rescuConfig.setProxyType(exchangeSpecification.getProxyType());
+    }
+    if (exchangeSpecification.getProxyUserName() != null
+        && exchangeSpecification.getProxyPassword() != null) {
+      rescuConfig =
+          ClientConfigUtil.addBasicAuthCredentials(
+              rescuConfig,
+              exchangeSpecification.getProxyUserName(),
+              exchangeSpecification.getProxyPassword());
     }
     return rescuConfig;
   }
