@@ -1,5 +1,6 @@
 package org.knowm.xchange.dto.account;
 
+import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -10,8 +11,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import com.fasterxml.jackson.annotation.*;
 import org.knowm.xchange.currency.Currency;
 
 /**
@@ -32,7 +31,7 @@ public final class Wallet implements Serializable {
     MARGIN_TRADING,
     /** You can fund other margin traders with funds allocated to this wallet to earn an interest */
     MARGIN_FUNDING,
-    /** Wallet for futures platform*/
+    /** Wallet for futures platform */
     FUTURES_TRADING
   }
 
