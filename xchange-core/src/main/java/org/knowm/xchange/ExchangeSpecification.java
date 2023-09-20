@@ -168,42 +168,6 @@ public class ExchangeSpecification {
   }
 
   /**
-   * Get the username to connect to the proxy server with authentication.
-   *
-   * @return The username to authenticate with the proxy.
-   */
-  public String getProxyUserName() {
-    return proxyUserName;
-  }
-
-  /**
-   * Set the username to connect to the proxy server with authentication.
-   *
-   * @param proxyUserName The username to authenticate with the proxy.
-   */
-  public void setProxyUserName(String proxyUserName) {
-    this.proxyUserName = proxyUserName;
-  }
-
-  /**
-   * Get the password to connect to the proxy server with authentication.
-   *
-   * @return The proxy password.
-   */
-  public String getProxyPassword() {
-    return proxyPassword;
-  }
-
-  /**
-   * Set the password to connect to the proxy server with authentication.
-   *
-   * @param proxyPassword The proxy password.
-   */
-  public void setProxyPassword(String proxyPassword) {
-    this.proxyPassword = proxyPassword;
-  }
-
-  /**
    * Get the API key. For MtGox this would be the "Rest-Key" field.
    *
    * @return the API key

@@ -1,9 +1,6 @@
 package org.knowm.xchange.client;
 
-import jakarta.ws.rs.HeaderParam;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -114,25 +111,6 @@ public final class ExchangeRestProxyBuilder<T> {
     if (exchangeSpecification.getProxyType() != null) {
       rescuConfig.setProxyType(exchangeSpecification.getProxyType());
     }
-    if (exchangeSpecification.getProxyUserName() != null
-        && exchangeSpecification.getProxyPassword() != null) {
-      rescuConfig =
-          rescuConfig.addDefaultParam(
-              HeaderParam.class,
-              "Proxy-Authorization",
-              digestForBasicAuth(
-                  exchangeSpecification.getProxyUserName(),
-                  exchangeSpecification.getProxyPassword()));
-    }
     return rescuConfig;
-  }
-
-  static String digestForBasicAuth(String username, String password) {
-    try {
-      byte[] inputBytes = (username + ":" + password).getBytes("ISO-8859-1");
-      return "Basic " + Base64.getEncoder().encodeToString(inputBytes);
-    } catch (UnsupportedEncodingException var3) {
-      throw new RuntimeException("Unsupported encoding, fix the code.", var3);
-    }
   }
 }
