@@ -31,8 +31,6 @@ public class ExchangeSpecification {
   private int port = 80;
   private String proxyHost;
   private Integer proxyPort;
-  private String proxyUserName;
-  private String proxyPassword;
   private Proxy.Type proxyType;
   private int httpConnTimeout = 0; // default rescu configuration will be used if value not changed
   private int httpReadTimeout = 0; // default rescu configuration will be used if value not changed
