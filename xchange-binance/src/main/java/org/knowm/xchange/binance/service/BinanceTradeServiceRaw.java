@@ -37,13 +37,13 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
     return decorateApiCall(
             () ->
                 (pair instanceof FuturesContract)
-                    ? binanceFutures.futureOpenOrders(
+                    ? binanceFuturesAuthenticated.futureOpenOrders(
                         Optional.of(pair).map(BinanceAdapters::toSymbol).orElse(null),
                         getRecvWindow(),
                         getTimestampFactory(),
                         apiKey,
                         signatureCreator)
-                    : binance.openOrders(
+                    : binanceAuthenticated.openOrders(
                         Optional.ofNullable(pair).map(BinanceAdapters::toSymbol).orElse(null),
                         getRecvWindow(),
                         getTimestampFactory(),
@@ -70,7 +70,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
       throws IOException, BinanceException {
     return decorateApiCall(
             () ->
-                binance.newOrder(
+                binanceAuthenticated.newOrder(
                     BinanceAdapters.toSymbol(pair),
                     side,
                     type,
@@ -111,7 +111,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
       throws IOException, BinanceException {
     return decorateApiCall(
             () ->
-                binanceFutures.newOrder(
+                binanceFuturesAuthenticated.newOrder(
                     BinanceAdapters.toSymbol(pair),
                     side,
                     type,
@@ -151,7 +151,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
       throws IOException, BinanceException {
     decorateApiCall(
             () ->
-                binance.testNewOrder(
+                binanceAuthenticated.testNewOrder(
                     BinanceAdapters.toSymbol(pair),
                     side,
                     type,
@@ -178,7 +178,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
     return decorateApiCall(
             () ->
                 (pair instanceof FuturesContract)
-                    ? binanceFutures.futureOrderStatus(
+                    ? binanceFuturesAuthenticated.futureOrderStatus(
                         BinanceAdapters.toSymbol(pair),
                         orderId,
                         origClientOrderId,
@@ -186,7 +186,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
                         getTimestampFactory(),
                         super.apiKey,
                         super.signatureCreator)
-                    : binance.orderStatus(
+                    : binanceAuthenticated.orderStatus(
                         BinanceAdapters.toSymbol(pair),
                         orderId,
                         origClientOrderId,
@@ -205,7 +205,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
     return decorateApiCall(
             () ->
                 (pair instanceof FuturesContract)
-                    ? binanceFutures.cancelFutureOrder(
+                    ? binanceFuturesAuthenticated.cancelFutureOrder(
                         BinanceAdapters.toSymbol(pair),
                         orderId,
                         origClientOrderId,
@@ -213,7 +213,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
                         getTimestampFactory(),
                         super.apiKey,
                         super.signatureCreator)
-                    : binance.cancelOrder(
+                    : binanceAuthenticated.cancelOrder(
                         BinanceAdapters.toSymbol(pair),
                         orderId,
                         origClientOrderId,
@@ -232,13 +232,13 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
     return decorateApiCall(
             () ->
                 (pair instanceof FuturesContract)
-                    ? binanceFutures.cancelAllFutureOpenOrders(
+                    ? binanceFuturesAuthenticated.cancelAllFutureOpenOrders(
                         BinanceAdapters.toSymbol(pair),
                         getRecvWindow(),
                         getTimestampFactory(),
                         super.apiKey,
                         super.signatureCreator)
-                    : binance.cancelAllOpenOrders(
+                    : binanceAuthenticated.cancelAllOpenOrders(
                         BinanceAdapters.toSymbol(pair),
                         getRecvWindow(),
                         getTimestampFactory(),
@@ -253,7 +253,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
       throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binance.allOrders(
+                binanceAuthenticated.allOrders(
                     BinanceAdapters.toSymbol(pair),
                     orderId,
                     limit,
@@ -272,7 +272,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
     return decorateApiCall(
             () ->
                 (pair instanceof FuturesContract)
-                    ? binanceFutures.myFutureTrades(
+                    ? binanceFuturesAuthenticated.myFutureTrades(
                         BinanceAdapters.toSymbol(pair),
                         orderId,
                         startTime,
@@ -283,7 +283,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
                         getTimestampFactory(),
                         apiKey,
                         signatureCreator)
-                    : binance.myTrades(
+                    : binanceAuthenticated.myTrades(
                         BinanceAdapters.toSymbol(pair),
                         orderId,
                         startTime,
@@ -302,7 +302,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
   public List<BinancePosition> openPositions() throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binanceFutures.futuresAccount(
+                binanceFuturesAuthenticated.futuresAccount(
                     getRecvWindow(), getTimestampFactory(), apiKey, signatureCreator))
         .withRetry(retry("futures-account"))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER), 5)
@@ -331,7 +331,7 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
 
     return decorateApiCall(
             () ->
-                binance.getDustLog(
+                binanceAuthenticated.getDustLog(
                     startTime,
                     endTime,
                     getRecvWindow(),
@@ -344,19 +344,19 @@ public class BinanceTradeServiceRaw extends BinanceBaseService {
   }
 
   public BinanceListenKey startUserDataStream() throws IOException {
-    return decorateApiCall(() -> binance.startUserDataStream(apiKey))
+    return decorateApiCall(() -> binanceAuthenticated.startUserDataStream(apiKey))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER))
         .call();
   }
 
   public void keepAliveDataStream(String listenKey) throws IOException {
-    decorateApiCall(() -> binance.keepAliveUserDataStream(apiKey, listenKey))
+    decorateApiCall(() -> binanceAuthenticated.keepAliveUserDataStream(apiKey, listenKey))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER))
         .call();
   }
 
   public void closeDataStream(String listenKey) throws IOException {
-    decorateApiCall(() -> binance.closeUserDataStream(apiKey, listenKey))
+    decorateApiCall(() -> binanceAuthenticated.closeUserDataStream(apiKey, listenKey))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER))
         .call();
   }
