@@ -34,14 +34,15 @@ public class BinanceBaseService extends BaseResilientExchangeService<BinanceExch
       BinanceExchange exchange, ResilienceRegistries resilienceRegistries) {
     super(exchange, resilienceRegistries);
 
-    ExchangeSpecification exchangeSpecificationWithoutProxy = exchange.getExchangeSpecification();
-    exchangeSpecificationWithoutProxy.setProxyHost(null);
-    exchangeSpecificationWithoutProxy.setProxyType(null);
-    exchangeSpecificationWithoutProxy.setProxyPort(null);
+    ExchangeSpecification specsWithoutProxy = exchange.getDefaultExchangeSpecification();
+    specsWithoutProxy.setExchangeSpecificParameters(
+        exchange.getExchangeSpecification().getExchangeSpecificParameters());
+    specsWithoutProxy.setHost(exchange.getExchangeSpecification().getHost());
+    specsWithoutProxy.setSslUri(exchange.getExchangeSpecification().getSslUri());
+    specsWithoutProxy.setPort(exchange.getExchangeSpecification().getPort());
+    specsWithoutProxy.setShouldLoadRemoteMetaData(false);
 
-    this.binance =
-        ExchangeRestProxyBuilder.forInterface(Binance.class, exchangeSpecificationWithoutProxy)
-            .build();
+    this.binance = ExchangeRestProxyBuilder.forInterface(Binance.class, specsWithoutProxy).build();
 
     this.binanceAuthenticated =
         ExchangeRestProxyBuilder.forInterface(

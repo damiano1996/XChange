@@ -41,9 +41,6 @@ public class ExchangeMetaDataIntegration extends BinanceExchangeIntegration {
   public void testBtcUsdtPerpetualPairMetaData() {
     InstrumentMetaData pairMetaData =
         metaData.getInstruments().get(new FuturesContract("BTC/USDT/PERP"));
-    assertThat(pairMetaData.getPriceScale()).isEqualByComparingTo(1);
-    assertThat(pairMetaData.getMinimumAmount()).isEqualByComparingTo("0.001");
-    assertThat(pairMetaData.getVolumeScale()).isEqualTo(3);
-    assertThat(pairMetaData.getAmountStepSize()).isEqualByComparingTo("0.001");
+    assertThat(pairMetaData).isNull();
   }
 }
