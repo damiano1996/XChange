@@ -3,6 +3,7 @@ package org.knowm.xchange.coinbasepro.service;
 import org.knowm.xchange.client.ExchangeRestProxyBuilder;
 import org.knowm.xchange.client.ResilienceRegistries;
 import org.knowm.xchange.coinbasepro.CoinbasePro;
+import org.knowm.xchange.coinbasepro.CoinbaseProAuthenticated;
 import org.knowm.xchange.coinbasepro.CoinbaseProExchange;
 import org.knowm.xchange.coinbasepro.dto.CoinbaseProException;
 import org.knowm.xchange.exceptions.ExchangeException;
@@ -15,6 +16,7 @@ import si.mazi.rescu.ParamsDigest;
 public class CoinbaseProBaseService extends BaseResilientExchangeService<CoinbaseProExchange> {
 
   protected final CoinbasePro coinbasePro;
+  protected final CoinbaseProAuthenticated coinbaseProAuthenticated;
   protected final ParamsDigest digest;
 
   protected final String apiKey;
@@ -22,12 +24,19 @@ public class CoinbaseProBaseService extends BaseResilientExchangeService<Coinbas
 
   protected CoinbaseProBaseService(
       CoinbaseProExchange exchange, ResilienceRegistries resilienceRegistries) {
-
     super(exchange, resilienceRegistries);
+
     coinbasePro =
         ExchangeRestProxyBuilder.forInterface(
-                CoinbasePro.class, exchange.getExchangeSpecification())
+                CoinbasePro.class,
+                exchange.getExchangeSpecification().getNoAuthExchangeSpecification())
             .build();
+
+    coinbaseProAuthenticated =
+        ExchangeRestProxyBuilder.forInterface(
+                CoinbaseProAuthenticated.class, exchange.getExchangeSpecification())
+            .build();
+
     digest = CoinbaseProDigest.createInstance(exchange.getExchangeSpecification().getSecretKey());
     apiKey = exchange.getExchangeSpecification().getApiKey();
     passphrase =

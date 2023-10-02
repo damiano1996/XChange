@@ -73,10 +73,9 @@ public class CoinbaseProMarketDataService extends CoinbaseProMarketDataServiceRa
    * argument the other must be specified as well.
    *
    * @param currencyPair Currency pair to obtain trades for (required)
-   * @param args[0] fromTradeId (Long) Return Trades with tradeIds greater than or equal to this
-   *     value. Additional values may be returned. (optional)
-   * @param args[1] toTradeId (Long) Return Trades with tradeIds up to but not including this value
-   *     (optional)
+   * @param args [0] fromTradeId (Long) Return Trades with tradeIds greater than or equal to this
+   *     value. Additional values may be returned. (optional) [1] toTradeId (Long) Return Trades
+   *     with tradeIds up to but not including this value (optional)
    * @return A Trades object holding the requested trades
    */
   @Override

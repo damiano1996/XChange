@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import org.knowm.xchange.client.ResilienceRegistries;
-import org.knowm.xchange.coinbasepro.CoinbasePro;
+import org.knowm.xchange.coinbasepro.CoinbaseProAuthenticated;
 import org.knowm.xchange.coinbasepro.CoinbaseProExchange;
 import org.knowm.xchange.coinbasepro.dto.CoinbaseProException;
 import org.knowm.xchange.coinbasepro.dto.CoinbaseProTransfers;
@@ -36,7 +36,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
       throws CoinbaseProException, IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.getAccounts(
+                coinbaseProAuthenticated.getAccounts(
                     apiKey, digest, UnixTimestampFactory.INSTANCE.createValue(), passphrase))
         .withRateLimiter(rateLimiter(PRIVATE_REST_ENDPOINT_RATE_LIMITER))
         .call();
@@ -46,7 +46,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
   public CoinbaseProFee getCoinbaseProFees() throws CoinbaseProException, IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.getFees(
+                coinbaseProAuthenticated.getFees(
                     apiKey, digest, UnixTimestampFactory.INSTANCE.createValue(), passphrase))
         .withRateLimiter(rateLimiter(PRIVATE_REST_ENDPOINT_RATE_LIMITER))
         .call();
@@ -57,7 +57,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
       throws CoinbaseProException, IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.sendMoney(
+                coinbaseProAuthenticated.sendMoney(
                     new CoinbaseProSendMoneyRequest(to, amount, currency.getCurrencyCode()),
                     apiKey,
                     digest,
@@ -78,7 +78,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
       throws CoinbaseProException, IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.withdrawCrypto(
+                coinbaseProAuthenticated.withdrawCrypto(
                     apiKey,
                     digest,
                     UnixTimestampFactory.INSTANCE.createValue(),
@@ -97,7 +97,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
   public List<Map<?, ?>> ledger(String accountId, String startingOrderId) throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.ledger(
+                coinbaseProAuthenticated.ledger(
                     apiKey,
                     digest,
                     UnixTimestampFactory.INSTANCE.createValue(),
@@ -109,11 +109,11 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
   }
 
   /** https://docs.pro.coinbase.com/#create-a-new-report */
-  public String requestNewReport(CoinbasePro.CoinbaseProReportRequest reportRequest)
+  public String requestNewReport(CoinbaseProAuthenticated.CoinbaseProReportRequest reportRequest)
       throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro
+                coinbaseProAuthenticated
                     .createReport(
                         apiKey,
                         digest,
@@ -130,7 +130,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
   public Map<?, ?> report(String reportId) throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.getReport(
+                coinbaseProAuthenticated.getReport(
                     apiKey,
                     digest,
                     UnixTimestampFactory.INSTANCE.createValue(),
@@ -145,7 +145,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
       throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.transfers(
+                coinbaseProAuthenticated.transfers(
                     apiKey,
                     digest,
                     UnixTimestampFactory.INSTANCE.createValue(),
@@ -163,7 +163,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
       String type, String profileId, String before, String after, int limit) throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.transfers(
+                coinbaseProAuthenticated.transfers(
                     apiKey,
                     digest,
                     UnixTimestampFactory.INSTANCE.createValue(),
@@ -181,7 +181,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
   public CoinbaseProAccount[] getCoinbaseAccounts() throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.getCoinbaseProAccounts(
+                coinbaseProAuthenticated.getCoinbaseProAccounts(
                     apiKey, digest, UnixTimestampFactory.INSTANCE.createValue(), passphrase))
         .withRateLimiter(rateLimiter(PRIVATE_REST_ENDPOINT_RATE_LIMITER))
         .call();
@@ -190,7 +190,7 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
   public CoinbaseProAccountAddress getCoinbaseAccountAddress(String accountId) throws IOException {
     return decorateApiCall(
             () ->
-                coinbasePro.getCoinbaseProAccountAddress(
+                coinbaseProAuthenticated.getCoinbaseProAccountAddress(
                     apiKey,
                     digest,
                     UnixTimestampFactory.INSTANCE.createValue(),
@@ -205,7 +205,10 @@ public class CoinbaseProAccountServiceRaw extends CoinbaseProBaseService {
     long timestamp = UnixTimestampFactory.INSTANCE.createValue();
     WebhookAuthDataParamsDigestProxy digestProxy = new WebhookAuthDataParamsDigestProxy();
     JsonNode json =
-        decorateApiCall(() -> coinbasePro.getVerifyId(apiKey, digestProxy, timestamp, passphrase))
+        decorateApiCall(
+                () ->
+                    coinbaseProAuthenticated.getVerifyId(
+                        apiKey, digestProxy, timestamp, passphrase))
             .withRateLimiter(rateLimiter(PRIVATE_REST_ENDPOINT_RATE_LIMITER))
             .call();
     String userId = json.get("id").asText();
