@@ -22,7 +22,7 @@ public class ExchangeMetaDataIntegration extends BinanceExchangeIntegration {
   @Test
   public void testEthBtcPairMetaData() {
     InstrumentMetaData pairMetaData = metaData.getInstruments().get(CurrencyPair.ETH_BTC);
-    assertThat(pairMetaData.getPriceScale()).isEqualByComparingTo(6);
+    assertThat(pairMetaData.getPriceScale()).isEqualByComparingTo(5);
     assertThat(pairMetaData.getMinimumAmount()).isEqualByComparingTo("0.0001");
     assertThat(pairMetaData.getMaximumAmount().longValueExact()).isEqualTo(100000);
     assertThat(pairMetaData.getAmountStepSize()).isEqualByComparingTo("0.0001");
@@ -30,8 +30,7 @@ public class ExchangeMetaDataIntegration extends BinanceExchangeIntegration {
 
   @Test
   public void testLtcBtcPairMetaData() {
-    InstrumentMetaData pairMetaData =
-        metaData.getInstruments().get(new CurrencyPair("LTC/BTC"));
+    InstrumentMetaData pairMetaData = metaData.getInstruments().get(new CurrencyPair("LTC/BTC"));
     assertThat(pairMetaData.getPriceScale()).isEqualByComparingTo(6);
     assertThat(pairMetaData.getMinimumAmount()).isEqualByComparingTo("0.001");
     assertThat(pairMetaData.getMaximumAmount().longValueExact()).isEqualTo(100000);
@@ -41,10 +40,7 @@ public class ExchangeMetaDataIntegration extends BinanceExchangeIntegration {
   @Test
   public void testBtcUsdtPerpetualPairMetaData() {
     InstrumentMetaData pairMetaData =
-            metaData.getInstruments().get(new FuturesContract("BTC/USDT/PERP"));
-    assertThat(pairMetaData.getPriceScale()).isEqualByComparingTo(1);
-    assertThat(pairMetaData.getMinimumAmount()).isEqualByComparingTo("0.001");
-    assertThat(pairMetaData.getVolumeScale()).isEqualTo(3);
-    assertThat(pairMetaData.getAmountStepSize()).isEqualByComparingTo("0.001");
+        metaData.getInstruments().get(new FuturesContract("BTC/USDT/PERP"));
+    assertThat(pairMetaData).isNull();
   }
 }

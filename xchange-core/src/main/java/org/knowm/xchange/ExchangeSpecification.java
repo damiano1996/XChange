@@ -518,6 +518,46 @@ public class ExchangeSpecification {
     this.overrideWebsocketApiUri = overrideWebsocketApiUri;
   }
 
+  /**
+   * Returns a new exchange specification that is a copy of this, but without data that are related
+   * to the user or proxy.
+   *
+   * @return The new exchange specification.
+   */
+  public ExchangeSpecification getNoAuthExchangeSpecification() {
+    ExchangeSpecification newSpec = new ExchangeSpecification(this.getExchangeClass());
+    newSpec.setExchangeName(this.getExchangeName());
+    newSpec.setExchangeDescription(this.getExchangeDescription());
+    newSpec.setSslUri(this.getSslUri());
+    newSpec.setPlainTextUri(this.getPlainTextUri());
+    newSpec.setOverrideWebsocketApiUri(this.getOverrideWebsocketApiUri());
+    newSpec.setHost(this.getHost());
+    newSpec.setPort(this.getPort());
+    newSpec.setHttpConnTimeout(this.getHttpConnTimeout());
+    newSpec.setHttpReadTimeout(this.getHttpReadTimeout());
+    newSpec.setResilience(this.getResilience());
+    newSpec.setMetaDataJsonFileOverride(this.getMetaDataJsonFileOverride());
+    newSpec.setShouldLoadRemoteMetaData(this.isShouldLoadRemoteMetaData());
+
+    // Copy exchangeSpecificParameters
+    Map<String, Object> exchangeSpecificParams =
+        new HashMap<>(this.getExchangeSpecificParameters());
+    newSpec.setExchangeSpecificParameters(exchangeSpecificParams);
+
+    // remove user's data
+    newSpec.setUserName(null);
+    newSpec.setPassword(null);
+    newSpec.setSecretKey(null);
+    newSpec.setApiKey(null);
+
+    // Remove proxy configuration
+    newSpec.setProxyHost(null);
+    newSpec.setProxyPort(null);
+    newSpec.setProxyType(null);
+
+    return newSpec;
+  }
+
   public static class ResilienceSpecification {
     private boolean retryEnabled = false;
     private boolean rateLimiterEnabled = false;

@@ -21,7 +21,8 @@ public class BybitBaseService implements BaseService {
 
   public BybitBaseService(Exchange exchange) {
     bybit =
-        ExchangeRestProxyBuilder.forInterface(Bybit.class, exchange.getExchangeSpecification())
+        ExchangeRestProxyBuilder.forInterface(
+                Bybit.class, exchange.getExchangeSpecification().getNoAuthExchangeSpecification())
             .clientConfigCustomizer(
                 clientConfig ->
                     clientConfig.setJacksonObjectMapperFactory(
