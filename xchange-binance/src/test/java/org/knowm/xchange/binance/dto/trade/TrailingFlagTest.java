@@ -1,9 +1,10 @@
 package org.knowm.xchange.binance.dto.trade;
 
-import java.util.Arrays;
-import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchIllegalArgumentException;
+
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
 
 /** @author mrmx */

@@ -2,9 +2,9 @@ package org.knowm.xchange.binance.service;
 
 import static org.knowm.xchange.utils.DigestUtils.bytesToHex;
 
+import jakarta.ws.rs.QueryParam;
 import java.nio.charset.StandardCharsets;
 import javax.crypto.Mac;
-import jakarta.ws.rs.QueryParam;
 import org.knowm.xchange.binance.BinanceAuthenticated;
 import org.knowm.xchange.service.BaseParamsDigest;
 import org.slf4j.Logger;
