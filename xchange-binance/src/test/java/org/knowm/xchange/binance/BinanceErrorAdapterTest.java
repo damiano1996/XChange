@@ -21,7 +21,7 @@ public class BinanceErrorAdapterTest {
   @Test
   public void testBinanceExceptionWithCode1013MsgMinNotional() {
     final ExchangeException adaptedException =
-        BinanceErrorAdapter.adapt(new BinanceException(-1013, "MIN_NOTIONAL"));
+        BinanceErrorAdapter.adapt(new BinanceException(-1013, "NOTIONAL"));
 
     assertThat(adaptedException).isInstanceOf(OrderAmountUnderMinimumException.class);
   }
