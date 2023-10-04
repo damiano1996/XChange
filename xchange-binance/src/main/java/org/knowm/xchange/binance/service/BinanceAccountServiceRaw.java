@@ -24,7 +24,9 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
 
   public BinanceAccountInformation account() throws BinanceException, IOException {
     return decorateApiCall(
-            () -> binance.account(getRecvWindow(), getTimestampFactory(), apiKey, signatureCreator))
+            () ->
+                binanceAuthenticated.account(
+                    getRecvWindow(), getTimestampFactory(), apiKey, signatureCreator))
         .withRetry(retry("account"))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER), 5)
         .call();
@@ -33,7 +35,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
   public BinanceFutureAccountInformation futuresAccount() throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binanceFutures.futuresAccount(
+                binanceFuturesAuthenticated.futuresAccount(
                     getRecvWindow(), getTimestampFactory(), apiKey, signatureCreator))
         .withRetry(retry("futures-account"))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER), 5)
@@ -60,7 +62,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
       throws IOException, BinanceException {
     return decorateApiCall(
             () ->
-                binance.withdraw(
+                binanceAuthenticated.withdraw(
                     coin,
                     address,
                     addressTag,
@@ -78,7 +80,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
   public DepositAddress requestDepositAddress(Currency currency) throws IOException {
     return decorateApiCall(
             () ->
-                binance.depositAddress(
+                binanceAuthenticated.depositAddress(
                     BinanceAdapters.toSymbol(currency),
                     getRecvWindow(),
                     getTimestampFactory(),
@@ -92,7 +94,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
   public Map<String, AssetDetail> requestAssetDetail() throws IOException {
     return decorateApiCall(
             () ->
-                binance.assetDetail(
+                binanceAuthenticated.assetDetail(
                     getRecvWindow(), getTimestampFactory(), apiKey, signatureCreator))
         .withRetry(retry("assetDetail"))
         .withRateLimiter(rateLimiter(REQUEST_WEIGHT_RATE_LIMITER))
@@ -103,7 +105,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
       throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binance.depositHistory(
+                binanceAuthenticated.depositHistory(
                     asset,
                     startTime,
                     endTime,
@@ -120,7 +122,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
       throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binance.withdrawHistory(
+                binanceAuthenticated.withdrawHistory(
                     asset,
                     startTime,
                     endTime,
@@ -142,7 +144,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
       String asset, Long startTime, Long endTime) throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binance.assetDividend(
+                binanceAuthenticated.assetDividend(
                     asset,
                     startTime,
                     endTime,
@@ -161,7 +163,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
       throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binance.transferHistory(
+                binanceAuthenticated.transferHistory(
                     fromEmail,
                     startTime,
                     endTime,
@@ -181,7 +183,7 @@ public class BinanceAccountServiceRaw extends BinanceBaseService {
       throws BinanceException, IOException {
     return decorateApiCall(
             () ->
-                binance.transferSubUserHistory(
+                binanceAuthenticated.transferSubUserHistory(
                     asset,
                     type,
                     startTime,

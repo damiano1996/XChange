@@ -21,7 +21,10 @@ public class KrakenUtils {
   private static final Map<String, Currency> assetsMap = new HashMap<>();
   private static final Map<Currency, String> assetsMapReverse = new HashMap<>();
 
-  /** <a href="https://support.kraken.com/hc/en-us/articles/360001185506-How-to-interpret-asset-codes">...</a> */
+  /**
+   * <a
+   * href="https://support.kraken.com/hc/en-us/articles/360001185506-How-to-interpret-asset-codes">...</a>
+   */
   private static final Map<String, String> discontinuedCurrencies;
 
   static {
@@ -76,17 +79,15 @@ public class KrakenUtils {
         if (base.getCommonlyUsedCurrency() != null) {
           base = base.getCommonlyUsedCurrency();
         }
-        Currency counter =
-            Currency.getInstance(
-                currencyPairIn.substring(firstCurrencyLength));
+        Currency counter = Currency.getInstance(currencyPairIn.substring(firstCurrencyLength));
         if (counter.getCommonlyUsedCurrency() != null) {
           counter = counter.getCommonlyUsedCurrency();
         }
         pair = new CurrencyPair(base, counter);
       }
-//      else if(currencyPairIn.length() == 5){
-//
-//      }
+      //      else if(currencyPairIn.length() == 5){
+      //
+      //      }
     }
     return pair;
   }

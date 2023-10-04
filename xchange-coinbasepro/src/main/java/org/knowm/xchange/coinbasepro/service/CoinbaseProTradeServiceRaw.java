@@ -32,7 +32,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
     try {
       return decorateApiCall(
               () ->
-                  coinbasePro.getListOrders(
+                  coinbaseProAuthenticated.getListOrders(
                       apiKey, digest, UnixTimestampFactory.INSTANCE.createValue(), passphrase))
           .withRateLimiter(rateLimiter(PRIVATE_REST_ENDPOINT_RATE_LIMITER))
           .call();
@@ -46,7 +46,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
     try {
       return decorateApiCall(
               () ->
-                  coinbasePro.getListOrders(
+                  coinbaseProAuthenticated.getListOrders(
                       apiKey,
                       digest,
                       UnixTimestampFactory.INSTANCE.createValue(),
@@ -98,7 +98,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
     }
 
     try {
-      return coinbasePro.getFills(
+      return coinbaseProAuthenticated.getFills(
           apiKey,
           digest,
           UnixTimestampFactory.INSTANCE.createValue(),
@@ -119,7 +119,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
     try {
       return decorateApiCall(
               () ->
-                  coinbasePro.placeOrder(
+                  coinbaseProAuthenticated.placeOrder(
                       order,
                       apiKey,
                       digest,
@@ -138,7 +138,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
 
       return decorateApiCall(
               () -> {
-                coinbasePro.cancelOrder(
+                coinbaseProAuthenticated.cancelOrder(
                     id, apiKey, digest, UnixTimestampFactory.INSTANCE.createValue(), passphrase);
                 return true;
               })
@@ -154,7 +154,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
     try {
       return decorateApiCall(
               () ->
-                  coinbasePro.getOrder(
+                  coinbaseProAuthenticated.getOrder(
                       id, apiKey, digest, UnixTimestampFactory.INSTANCE.createValue(), passphrase))
           .withRateLimiter(rateLimiter(PRIVATE_REST_ENDPOINT_RATE_LIMITER))
           .call();
@@ -169,7 +169,7 @@ public class CoinbaseProTradeServiceRaw extends CoinbaseProBaseService {
     try {
       return decorateApiCall(
               () ->
-                  coinbasePro.getListOrders(
+                  coinbaseProAuthenticated.getListOrders(
                       apiKey,
                       digest,
                       UnixTimestampFactory.INSTANCE.createValue(),

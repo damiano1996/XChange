@@ -14,7 +14,7 @@ import si.mazi.rescu.SynchronizedValueFactory;
 
 @Path("")
 @Produces(MediaType.APPLICATION_JSON)
-public interface BinanceFuturesAuthenticated extends BinanceFutures {
+public interface BinanceFuturesAuthenticated {
 
   String SIGNATURE = "signature";
   String X_MBX_APIKEY = "X-MBX-APIKEY";

@@ -18,6 +18,7 @@ import org.knowm.xchange.exceptions.FundsExceededException;
 import org.knowm.xchange.exceptions.NonceException;
 import org.knowm.xchange.exceptions.RateLimitExceededException;
 import org.knowm.xchange.instrument.Instrument;
+import org.knowm.xchange.kraken.Kraken;
 import org.knowm.xchange.kraken.KrakenAuthenticated;
 import org.knowm.xchange.kraken.KrakenUtils;
 import org.knowm.xchange.kraken.dto.KrakenResult;
@@ -33,7 +34,8 @@ import si.mazi.rescu.ParamsDigest;
 
 public class KrakenBaseService extends BaseExchangeService implements BaseService {
 
-  protected KrakenAuthenticated kraken;
+  protected Kraken kraken;
+  protected KrakenAuthenticated krakenAuthenticated;
   protected ParamsDigest signatureCreator;
 
   /**
@@ -42,13 +44,18 @@ public class KrakenBaseService extends BaseExchangeService implements BaseServic
    * @param exchange
    */
   public KrakenBaseService(Exchange exchange) {
-
     super(exchange);
 
     kraken =
         ExchangeRestProxyBuilder.forInterface(
+                Kraken.class, exchange.getExchangeSpecification().getNoAuthExchangeSpecification())
+            .build();
+
+    krakenAuthenticated =
+        ExchangeRestProxyBuilder.forInterface(
                 KrakenAuthenticated.class, exchange.getExchangeSpecification())
             .build();
+
     signatureCreator =
         KrakenDigest.createInstance(exchange.getExchangeSpecification().getSecretKey());
   }

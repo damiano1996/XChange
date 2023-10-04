@@ -44,7 +44,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       throws IOException {
 
     KrakenOpenOrdersResult result =
-        kraken.openOrders(
+        krakenAuthenticated.openOrders(
             includeTrades,
             userRef,
             exchange.getExchangeSpecification().getApiKey(),
@@ -69,7 +69,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       throws IOException {
 
     KrakenClosedOrdersResult result =
-        kraken.closedOrders(
+        krakenAuthenticated.closedOrders(
             includeTrades,
             userRef,
             start,
@@ -92,7 +92,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       boolean includeTrades, String userRef, String... transactionIds) throws IOException {
 
     KrakenQueryOrderResult krakenQueryOrderResult =
-        kraken.queryOrders(
+        krakenAuthenticated.queryOrders(
             includeTrades,
             userRef,
             createDelimitedString(transactionIds),
@@ -107,7 +107,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       boolean includeTrades, String userRef, String... transactionIds) throws IOException {
 
     KrakenQueryOrderResult result =
-        kraken.queryOrders(
+        krakenAuthenticated.queryOrders(
             includeTrades,
             userRef,
             createDelimitedString(transactionIds),
@@ -127,7 +127,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       throws IOException {
 
     KrakenTradeHistoryResult result =
-        kraken.tradeHistory(
+        krakenAuthenticated.tradeHistory(
             type,
             includeTrades,
             start,
@@ -149,7 +149,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       throws IOException {
 
     KrakenQueryTradeResult result =
-        kraken.queryTrades(
+        krakenAuthenticated.queryTrades(
             includeTrades,
             createDelimitedString(transactionIds),
             exchange.getExchangeSpecification().getApiKey(),
@@ -168,7 +168,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
       boolean doCalcs, String... transactionIds) throws IOException {
 
     KrakenOpenPositionsResult result =
-        kraken.openPositions(
+        krakenAuthenticated.openPositions(
             createDelimitedString(transactionIds),
             doCalcs,
             exchange.getExchangeSpecification().getApiKey(),
@@ -232,7 +232,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
     KrakenOrderResult result = null;
     if (!krakenStandardOrder.isValidateOnly()) {
       result =
-          kraken.addOrder(
+          krakenAuthenticated.addOrder(
               KrakenUtils.createKrakenCurrencyPair(krakenStandardOrder.getAssetPair()),
               krakenStandardOrder.getType().toString(),
               krakenStandardOrder.getOrderType().toApiFormat(),
@@ -252,7 +252,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
               exchange.getNonceFactory());
     } else {
       result =
-          kraken.addOrderValidateOnly(
+          krakenAuthenticated.addOrderValidateOnly(
               KrakenUtils.createKrakenCurrencyPair(krakenStandardOrder.getAssetPair()),
               krakenStandardOrder.getType().toString(),
               krakenStandardOrder.getOrderType().toApiFormat(),
@@ -279,7 +279,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
   public KrakenCancelOrderResponse cancelKrakenOrder(String orderId) throws IOException {
 
     KrakenCancelOrderResult result =
-        kraken.cancelOrder(
+        krakenAuthenticated.cancelOrder(
             exchange.getExchangeSpecification().getApiKey(),
             signatureCreator,
             exchange.getNonceFactory(),
@@ -291,7 +291,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
   protected KrakenTradeVolume getTradeVolume(CurrencyPair... currencyPairs) throws IOException {
 
     KrakenTradeVolumeResult result =
-        kraken.tradeVolume(
+        krakenAuthenticated.tradeVolume(
             delimitAssetPairs(currencyPairs),
             exchange.getExchangeSpecification().getApiKey(),
             signatureCreator,
@@ -305,7 +305,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
     String orderIdsString = String.join(",", orderIds);
 
     KrakenQueryOrderResult krakenOrderResult =
-        kraken.queryOrders(
+        krakenAuthenticated.queryOrders(
             false,
             null,
             orderIdsString,

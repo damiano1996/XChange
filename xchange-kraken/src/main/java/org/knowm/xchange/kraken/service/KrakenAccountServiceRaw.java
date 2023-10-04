@@ -57,7 +57,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public Map<String, BigDecimal> getKrakenBalance() throws IOException {
 
     KrakenBalanceResult balanceResult =
-        kraken.balance(
+        krakenAuthenticated.balance(
             exchange.getExchangeSpecification().getApiKey(),
             signatureCreator,
             exchange.getNonceFactory());
@@ -67,7 +67,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public KrakenDepositAddress[] getDepositAddresses(
       String currency, String method, boolean newAddress) throws IOException {
     KrakenDepositAddressResult depositAddressesResult =
-        kraken.getDepositAddresses(
+        krakenAuthenticated.getDepositAddresses(
             null,
             currency,
             method,
@@ -81,7 +81,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public KrakenDepositMethods[] getDepositMethods(String assetPairs, String assets)
       throws IOException {
     KrakenDepositMethodsResults depositMethods =
-        kraken.getDepositMethods(
+        krakenAuthenticated.getDepositMethods(
             assetPairs,
             assets,
             exchange.getExchangeSpecification().getApiKey(),
@@ -93,7 +93,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public WithdrawInfo getWithdrawInfo(
       String assetPairs, String assets, String key, BigDecimal amount) throws IOException {
     WithdrawInfoResult withdrawInfoResult =
-        kraken.getWithdrawInfo(
+        krakenAuthenticated.getWithdrawInfo(
             assetPairs,
             assets,
             key,
@@ -107,7 +107,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public Withdraw withdraw(String assetPairs, String assets, String key, BigDecimal amount)
       throws IOException {
     WithdrawResult withdrawResult =
-        kraken.withdraw(
+        krakenAuthenticated.withdraw(
             assetPairs,
             assets,
             key,
@@ -121,7 +121,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public List<DepostitStatus> getDepositStatus(String assetPairs, String assets, String method)
       throws IOException {
     DepositStatusResult result =
-        kraken.getDepositStatus(
+        krakenAuthenticated.getDepositStatus(
             assetPairs,
             assets,
             method,
@@ -134,7 +134,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public List<WithdrawStatus> getWithdrawStatus(String assetPairs, String assets, String method)
       throws IOException {
     WithdrawStatusResult result =
-        kraken.getWithdrawStatus(
+        krakenAuthenticated.getWithdrawStatus(
             assetPairs,
             assets,
             method,
@@ -161,7 +161,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
     }
 
     KrakenTradeBalanceInfoResult balanceResult =
-        kraken.tradeBalance(
+        krakenAuthenticated.tradeBalance(
             null,
             valuationCurrencyCode,
             exchange.getExchangeSpecification().getApiKey(),
@@ -210,7 +210,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
       throws IOException {
     String ledgerTypeString = (ledgerType == null) ? "all" : ledgerType.toString().toLowerCase();
     KrakenLedgerResult ledgerResult =
-        kraken.ledgers(
+        krakenAuthenticated.ledgers(
             null,
             delimitAssets(assets),
             ledgerTypeString,
@@ -272,7 +272,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
 
   public KrakenWebsocketToken getKrakenWebsocketToken() throws IOException {
     KrakenWebsocketTokenResult tokenResult =
-        kraken.getWebsocketToken(
+        krakenAuthenticated.getWebsocketToken(
             null,
             null,
             exchange.getExchangeSpecification().getApiKey(),
@@ -285,7 +285,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
   public Map<String, KrakenLedger> queryKrakenLedger(String... ledgerIds) throws IOException {
 
     KrakenQueryLedgerResult ledgerResult =
-        kraken.queryLedgers(
+        krakenAuthenticated.queryLedgers(
             createDelimitedString(ledgerIds),
             exchange.getExchangeSpecification().getApiKey(),
             signatureCreator,
@@ -296,7 +296,7 @@ public class KrakenAccountServiceRaw extends KrakenBaseService {
 
   public KrakenTradeVolume getTradeVolume(CurrencyPair... currencyPairs) throws IOException {
     KrakenTradeVolumeResult result =
-        kraken.tradeVolume(
+        krakenAuthenticated.tradeVolume(
             delimitAssetPairs(currencyPairs),
             exchange.getExchangeSpecification().getApiKey(),
             signatureCreator,
