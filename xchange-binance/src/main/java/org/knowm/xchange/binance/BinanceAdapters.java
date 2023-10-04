@@ -469,7 +469,7 @@ public class BinanceAdapters {
               maxQty = new BigDecimal(filter.getMaxQty()).stripTrailingZeros();
               stepSize = new BigDecimal(filter.getStepSize()).stripTrailingZeros();
               break;
-            case "MIN_NOTIONAL":
+            case "NOTIONAL":
               counterMinQty =
                   (filter.getMinNotional() != null)
                       ? new BigDecimal(filter.getMinNotional()).stripTrailingZeros()
@@ -534,7 +534,7 @@ public class BinanceAdapters {
               maxQty = new BigDecimal(filter.getMaxQty()).stripTrailingZeros();
               stepSize = new BigDecimal(filter.getStepSize()).stripTrailingZeros();
               break;
-            case "MIN_NOTIONAL":
+            case "NOTIONAL":
               counterMinQty = new BigDecimal(filter.getMinNotional()).stripTrailingZeros();
               break;
           }
