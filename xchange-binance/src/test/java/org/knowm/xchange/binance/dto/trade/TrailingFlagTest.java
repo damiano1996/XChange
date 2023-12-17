@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
-/** @author mrmx */
+/**
+ * @author mrmx
+ */
 public class TrailingFlagTest {
 
   /** Test of method, of class BinanceOrderTrailingFlag. */

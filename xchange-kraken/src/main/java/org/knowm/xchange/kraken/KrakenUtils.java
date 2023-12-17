@@ -13,7 +13,9 @@ import org.knowm.xchange.kraken.dto.trade.KrakenOrder;
 import org.knowm.xchange.kraken.dto.trade.KrakenOrderDescription;
 import org.knowm.xchange.kraken.dto.trade.KrakenTrade;
 
-/** @author timmolter */
+/**
+ * @author timmolter
+ */
 public class KrakenUtils {
 
   private static final Map<String, CurrencyPair> assetPairMap = new HashMap<>();

@@ -90,13 +90,17 @@ public class Trades implements Serializable {
     }
   }
 
-  /** @return A list of trades ordered by id */
+  /**
+   * @return A list of trades ordered by id
+   */
   public List<Trade> getTrades() {
 
     return trades;
   }
 
-  /** @return a Unique ID for the fetched trades */
+  /**
+   * @return a Unique ID for the fetched trades
+   */
   public long getlastID() {
 
     return lastID;

@@ -4,6 +4,7 @@ import static org.knowm.xchange.bybit.service.BybitDigest.X_BAPI_API_KEY;
 import static org.knowm.xchange.bybit.service.BybitDigest.X_BAPI_SIGN;
 import static org.knowm.xchange.bybit.service.BybitDigest.X_BAPI_TIMESTAMP;
 
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
@@ -29,7 +30,9 @@ import si.mazi.rescu.SynchronizedValueFactory;
 @Produces(MediaType.APPLICATION_JSON)
 public interface BybitAuthenticated {
 
-  /** @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/account/wallet-balance">API</a> */
+  /**
+   * @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/account/wallet-balance">API</a>
+   */
   @GET
   @Path("/account/wallet-balance")
   BybitResult<BybitWalletBalance> getWalletBalance(
@@ -39,7 +42,9 @@ public interface BybitAuthenticated {
       @QueryParam("accountType") String accountType)
       throws IOException, BybitException;
 
-  /** @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/asset/all-balance">API</a> */
+  /**
+   * @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/asset/all-balance">API</a>
+   */
   @GET
   @Path("/asset/transfer/query-account-coins-balance")
   BybitResult<BybitAllCoinsBalance> getAllCoinsBalance(
@@ -49,7 +54,9 @@ public interface BybitAuthenticated {
       @QueryParam("accountType") String accountType)
       throws IOException, BybitException;
 
-  /** @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/account/fee-rate">API</a> */
+  /**
+   * @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/account/fee-rate">API</a>
+   */
   @GET
   @Path("/account/fee-rate")
   BybitResult<BybitFeeRates> getFeeRates(
@@ -60,7 +67,9 @@ public interface BybitAuthenticated {
       @QueryParam("symbol") String symbol)
       throws IOException, BybitException;
 
-  /** @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/order/open-order">API</a> */
+  /**
+   * @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/order/open-order">API</a>
+   */
   @GET
   @Path("/order/realtime")
   BybitResult<BybitOrderDetails<BybitOrderDetail>> getOpenOrders(
@@ -71,7 +80,9 @@ public interface BybitAuthenticated {
       @QueryParam("orderId") String orderId)
       throws IOException, BybitException;
 
-  /** @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/order/create-order">API</a> */
+  /**
+   * @apiSpec <a href="https://bybit-exchange.github.io/docs/v5/order/create-order">API</a>
+   */
   @POST
   @Path("/order/create")
   BybitResult<BybitOrderResponse> placeOrder(

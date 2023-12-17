@@ -16,7 +16,9 @@ import org.knowm.xchange.kraken.dto.marketdata.results.KrakenServerTimeResult;
 import org.knowm.xchange.kraken.dto.marketdata.results.KrakenSpreadsResult;
 import org.knowm.xchange.kraken.dto.marketdata.results.KrakenTickerResult;
 
-/** @author Benedikt Bünz */
+/**
+ * @author Benedikt Bünz
+ */
 @Path("0")
 @Produces(MediaType.APPLICATION_JSON)
 public interface Kraken {

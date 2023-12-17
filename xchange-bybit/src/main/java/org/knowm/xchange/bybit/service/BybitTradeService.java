@@ -1,5 +1,6 @@
 package org.knowm.xchange.bybit.service;
 
+import static org.knowm.xchange.bybit.BybitAdapters.*;
 import static org.knowm.xchange.bybit.BybitAdapters.adaptBybitOrderDetails;
 import static org.knowm.xchange.bybit.BybitAdapters.convertToBybitSymbol;
 import static org.knowm.xchange.bybit.BybitAdapters.getSideString;

@@ -12,12 +12,16 @@ import org.knowm.xchange.instrument.Instrument;
 public class OpenPosition implements Serializable {
   /** The instrument */
   private final Instrument instrument;
+
   /** Is this a long or a short position */
   private final Type type;
+
   /** The size of the position */
   private final BigDecimal size;
+
   /** The average entry price for the position */
   @JsonIgnore private final BigDecimal price;
+
   /** The estimatedLiquidationPrice */
   @JsonIgnore private final BigDecimal liquidationPrice;
 

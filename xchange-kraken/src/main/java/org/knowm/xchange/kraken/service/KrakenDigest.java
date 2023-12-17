@@ -8,7 +8,9 @@ import javax.crypto.Mac;
 import org.knowm.xchange.service.BaseParamsDigest;
 import si.mazi.rescu.RestInvocation;
 
-/** @author Benedikt Bünz */
+/**
+ * @author Benedikt Bünz
+ */
 public class KrakenDigest extends BaseParamsDigest {
 
   /**

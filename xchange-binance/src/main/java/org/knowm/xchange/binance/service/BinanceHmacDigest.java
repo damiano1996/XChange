@@ -24,7 +24,9 @@ public class BinanceHmacDigest extends BaseParamsDigest {
     return secretKeyBase64 == null ? null : new BinanceHmacDigest(secretKeyBase64);
   }
 
-  /** @return the query string except of the "signature" parameter */
+  /**
+   * @return the query string except of the "signature" parameter
+   */
   private static String getQuery(RestInvocation restInvocation) {
     final Params p = Params.of();
     restInvocation.getParamsMap().get(QueryParam.class).asHttpHeaders().entrySet().stream()
